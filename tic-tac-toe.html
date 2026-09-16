@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Play a quick game of Tic-Tac-Toe.">
+  <title>Tic-Tac-Toe | Engineering Material</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+    :root { --ink:#132238; --muted:#64748b; --paper:#f6f1e8; --surface:#fffdf8; --line:#ddd6c8; --mint:#c8e6f0; --green:#173f5f; --orange:#f05d5e; --blue:#bfe3ef; --yellow:#f6c85f; --shadow:0 18px 50px rgba(19,34,56,.14); }
+    * { box-sizing:border-box; }
+    body { min-height:100vh; margin:0; color:var(--ink); background:radial-gradient(circle at 15% 10%,#dff1f5 0,transparent 32%),radial-gradient(circle at 90% 90%,#f9d9c9 0,transparent 32%),var(--paper); font-family:'DM Sans',sans-serif; }
+    a { color:inherit; text-decoration:none; }
+    button { font:inherit; cursor:pointer; }
+    .shell { max-width:980px; margin:auto; padding:24px 38px 58px; }
+    header { display:flex; align-items:center; justify-content:space-between; gap:20px; margin-bottom:50px; }
+    .brand { display:flex; align-items:center; gap:11px; font:700 20px 'Space Grotesk',sans-serif; letter-spacing:-.5px; }
+    .brand-mark { position:relative; display:grid; place-items:center; width:35px; height:35px; color:#fff; background:var(--green); border-radius:11px 11px 11px 3px; font:700 15px 'Space Grotesk',sans-serif; }
+    .brand-mark::before, .brand-mark::after { content:''; position:absolute; width:9px; height:9px; border:2px solid var(--yellow); transform:rotate(45deg); }
+    .brand-mark::before { top:7px; left:7px; }
+    .brand-mark::after { right:6px; bottom:6px; border-color:var(--blue); }
+    .back-link { padding:11px 15px; color:var(--green); background:var(--mint); border-radius:10px; font-size:13px; font-weight:700; }
+    .back-link:hover { background:#a9d7e4; }
+    .intro { margin-bottom:30px; text-align:center; }
+    .eyebrow { display:inline-flex; align-items:center; gap:8px; color:var(--green); font-size:12px; font-weight:700; letter-spacing:1.3px; text-transform:uppercase; }
+    .eyebrow::before { content:''; width:25px; height:2px; background:var(--orange); }
+    h1, h2 { font-family:'Space Grotesk',sans-serif; letter-spacing:-1.3px; }
+    h1 { margin:16px 0 9px; font-size:clamp(38px,5vw,62px); line-height:1; }
+    .intro p { margin:0; color:var(--muted); font-size:15px; }
+    .game-layout { display:grid; grid-template-columns:minmax(290px,430px) 250px; justify-content:center; gap:28px; align-items:start; }
+    .game-card, .score-card { padding:24px; background:var(--surface); border:1px solid var(--line); border-radius:18px; box-shadow:var(--shadow); }
+    .status { margin:0 0 17px; color:var(--green); text-align:center; font:700 18px 'Space Grotesk',sans-serif; }
+    .board { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; aspect-ratio:1; }
+    .cell { display:grid; place-items:center; min-width:0; border:0; border-radius:12px; color:var(--green); background:var(--mint); font:700 clamp(42px,10vw,68px) 'Space Grotesk',sans-serif; transition:transform .15s,background .15s; }
+    .cell:hover:not(:disabled) { transform:scale(.96); background:var(--blue); }
+    .cell:disabled { cursor:default; }
+    .cell.o { color:var(--orange); background:#ffe0d5; }
+    .cell.winner { color:#132238; background:var(--yellow); }
+    .reset { width:100%; margin-top:18px; padding:13px; border:0; border-radius:9px; color:#fff; background:var(--green); font-weight:700; }
+    .score-card h2 { margin:0 0 18px; font-size:21px; }
+    .score-row { display:flex; align-items:center; justify-content:space-between; padding:13px 0; border-bottom:1px solid var(--line); color:var(--muted); font-size:13px; }
+    .score-row:last-of-type { border-bottom:0; }
+    .score-row strong { color:var(--ink); font:700 22px 'Space Grotesk',sans-serif; }
+    .game-note { margin:20px 0 0; padding-top:18px; border-top:1px solid var(--line); color:var(--muted); font-size:12px; line-height:1.5; }
+    @media (max-width:700px) { .shell { padding:20px; } header { margin-bottom:35px; } .game-layout { grid-template-columns:minmax(0,430px); } .score-card { width:100%; } }
+    @media (max-width:480px) { .shell { padding:17px 16px 38px; } .brand { font-size:18px; } .back-link { padding:9px 10px; font-size:12px; } .game-card, .score-card { padding:17px; } }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header><a class="brand" href="index.html"><span class="brand-mark">E</span> Engineering Material</a><a class="back-link" href="index.html">&lt;- Dashboard</a></header>
+    <main>
+      <section class="intro"><span class="eyebrow">Quick break</span><h1>Tic-Tac-Toe</h1><p>Take turns, make a line, and reset whenever you want a fresh board.</p></section>
+      <section class="game-layout">
+        <div class="game-card"><p class="status" id="status" aria-live="polite">Player X's turn</p><div class="board" id="board" role="grid" aria-label="Tic-Tac-Toe board"></div><button class="reset" id="resetButton" type="button">New game</button></div>
+        <aside class="score-card"><h2>Scoreboard</h2><div class="score-row"><span>Player X</span><strong id="scoreX">0</strong></div><div class="score-row"><span>Player O</span><strong id="scoreO">0</strong></div><div class="score-row"><span>Draws</span><strong id="scoreDraw">0</strong></div><p class="game-note">The board is for two players. X always starts the next round.</p></aside>
+      </section>
+    </main>
+  </div>
+  <script>
+    const board = document.getElementById('board');
+    const status = document.getElementById('status');
+    const scores = { X:0, O:0, draw:0 };
+    const wins = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+    let cells = [];
+    let turn = 'X';
+    let gameOver = false;
+    function makeBoard() { board.innerHTML = ''; cells = Array.from({ length:9 }, (_, index) => { const cell = document.createElement('button'); cell.className = 'cell'; cell.type = 'button'; cell.setAttribute('role','gridcell'); cell.setAttribute('aria-label',`Cell ${index + 1}`); cell.addEventListener('click', () => play(index)); board.appendChild(cell); return cell; }); }
+    function play(index) { if (gameOver || cells[index].textContent) return; cells[index].textContent = turn; cells[index].classList.toggle('o', turn === 'O'); const line = wins.find(combo => combo.every(position => cells[position].textContent === turn)); if (line) { gameOver = true; line.forEach(position => cells[position].classList.add('winner')); scores[turn]++; status.textContent = `Player ${turn} wins!`; updateScores(); cells.forEach(cell => { cell.disabled = true; }); return; } if (cells.every(cell => cell.textContent)) { gameOver = true; scores.draw++; status.textContent = 'It is a draw.'; updateScores(); return; } turn = turn === 'X' ? 'O' : 'X'; status.textContent = `Player ${turn}'s turn`; }
+    function updateScores() { document.getElementById('scoreX').textContent = scores.X; document.getElementById('scoreO').textContent = scores.O; document.getElementById('scoreDraw').textContent = scores.draw; }
+    function resetGame() { makeBoard(); turn = 'X'; gameOver = false; status.textContent = "Player X's turn"; }
+    document.getElementById('resetButton').addEventListener('click', resetGame);
+    resetGame();
+  </script>
+</body>
+</html>

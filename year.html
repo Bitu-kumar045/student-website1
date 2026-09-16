@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Engineering Material year-wise study resources.">
+  <title>Year Resources | Engineering Material</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+    :root { --ink:#132238; --muted:#64748b; --paper:#f6f1e8; --surface:#fffdf8; --line:#ddd6c8; --mint:#c8e6f0; --green:#173f5f; --orange:#f05d5e; --blue:#bfe3ef; --yellow:#f6c85f; --shadow:0 18px 50px rgba(19,34,56,.14); }
+    * { box-sizing:border-box; }
+    body { margin:0; color:var(--ink); background:var(--paper); font-family:'DM Sans',sans-serif; }
+    button, input { font:inherit; }
+    button, a { cursor:pointer; }
+    a { color:inherit; text-decoration:none; }
+    .shell { max-width:1380px; margin:auto; padding:24px 38px 58px; }
+    header { display:flex; align-items:center; justify-content:space-between; gap:25px; margin-bottom:38px; }
+    .brand { display:flex; align-items:center; gap:11px; font:700 20px 'Space Grotesk',sans-serif; letter-spacing:-.5px; }
+    .brand-mark { position:relative; display:grid; place-items:center; width:35px; height:35px; color:#fff; background:var(--green); border-radius:11px 11px 11px 3px; font:700 15px 'Space Grotesk',sans-serif; }
+    .brand-mark::before, .brand-mark::after { content:''; position:absolute; width:9px; height:9px; border:2px solid #f6c85f; transform:rotate(45deg); }
+    .brand-mark::before { top:7px; left:7px; }
+    .brand-mark::after { right:6px; bottom:6px; border-color:#bfe3ef; }
+    .header-links { display:flex; align-items:center; gap:10px; }
+    .back-link, .template-link { display:inline-flex; align-items:center; gap:8px; padding:11px 15px; border-radius:10px; font-size:13px; font-weight:700; }
+    .back-link { color:var(--green); background:var(--mint); }
+    .template-link { color:#fff; background:var(--green); }
+    .back-link:hover { background:#a9d7e4; }
+    .template-link:hover { background:#104b3e; }
+    .intro { display:flex; align-items:end; justify-content:space-between; gap:30px; margin-bottom:24px; padding:34px; background:linear-gradient(125deg,#dff1f5,#fff0df); border:1px solid var(--line); border-radius:18px; }
+    .eyebrow { display:inline-flex; align-items:center; gap:8px; color:var(--green); font-size:12px; font-weight:700; letter-spacing:1.3px; text-transform:uppercase; }
+    .eyebrow::before { content:''; width:25px; height:2px; background:var(--orange); }
+    h1, h2, h3 { font-family:'Space Grotesk',sans-serif; letter-spacing:-1.5px; }
+    h1 { margin:16px 0 9px; font-size:clamp(38px,5vw,64px); line-height:1; }
+    .intro p { max-width:600px; margin:0; color:var(--muted); font-size:15px; line-height:1.6; }
+    .search { display:flex; align-items:center; gap:11px; width:min(370px,100%); padding:11px 14px; background:var(--surface); border:1px solid var(--line); border-radius:11px; }
+    .search svg { flex:none; color:#86918d; }
+    .search input { width:100%; min-width:0; border:0; outline:0; background:transparent; }
+    .search input::placeholder { color:#99a29f; }
+    .year-nav { display:flex; gap:9px; overflow:auto; margin-bottom:27px; padding-bottom:2px; }
+    .year-nav a { min-width:88px; padding:12px 15px; color:#77817f; border:1px solid var(--line); border-radius:10px; text-align:center; font-size:13px; font-weight:700; white-space:nowrap; }
+    .year-nav a.active { color:var(--green); background:var(--mint); border-color:var(--mint); }
+    .semester-columns { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:28px; }
+    .semester-panel { padding:20px; background:rgba(255,255,255,.55); border:1px solid var(--line); border-radius:16px; }
+    .semester-panel h2 { margin:0 0 14px; color:var(--green); font-size:20px; }
+    .resource-grid { display:grid; gap:14px; }
+    .resource-card { display:flex; flex-direction:column; min-height:184px; padding:20px; background:var(--surface); border:1px solid var(--line); border-radius:13px; transition:transform .2s,box-shadow .2s; }
+    .resource-card:hover { transform:translateY(-3px); box-shadow:var(--shadow); }
+    .card-icon { display:grid; place-items:center; width:39px; height:39px; margin-bottom:17px; border-radius:10px; color:var(--green); background:var(--blue); font-size:20px; }
+    .resource-card:nth-child(3n) .card-icon { background:var(--yellow); }
+    .resource-card:nth-child(2n) .card-icon { background:#f8ddd0; }
+    .resource-card h3 { margin:0 0 7px; font-size:18px; letter-spacing:-.5px; }
+    .resource-card p { margin:0; color:var(--muted); font-size:13px; line-height:1.45; }
+    .card-footer { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:auto; padding-top:17px; color:var(--green); font-size:12px; font-weight:700; }
+    .arrow { display:grid; place-items:center; width:28px; height:28px; border-radius:50%; background:#f0f4ee; }
+    .empty { grid-column:1/-1; padding:35px; text-align:center; color:var(--muted); background:var(--surface); border:1px dashed #cfd5cd; border-radius:13px; }
+    @media (max-width:750px) { .shell { padding:20px 20px 45px; } header { margin-bottom:25px; } .header-links { gap:6px; } .back-link, .template-link { padding:9px 10px; font-size:12px; } .intro { display:block; padding:25px 21px; } .search { margin-top:22px; width:100%; } .semester-columns { grid-template-columns:1fr; gap:20px; } }
+    @media (max-width:480px) { .shell { padding:17px 16px 38px; } header { align-items:start; } .brand { font-size:18px; } .brand-mark { width:32px; height:32px; } .back-link { padding:9px 11px; font-size:12px; } h1 { font-size:42px; } }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header>
+      <a class="brand" href="index.html"><span class="brand-mark">E</span> Engineering Material</a>
+      <div class="header-links"><a class="template-link" href="2d-template.html">2D template</a><a class="back-link" href="index.html">&lt;- Dashboard</a></div>
+    </header>
+    <main>
+      <section class="intro">
+        <div><span class="eyebrow" id="eyebrow">Year resources</span><h1 id="pageTitle">First year</h1><p id="pageDescription">Your complete subject, textbook, notes and practical resources for this academic year.</p></div>
+        <label class="search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m16.5 16.5 4 4"/></svg><input id="searchInput" type="search" placeholder="Search this year's resources..." aria-label="Search this year's resources"></label>
+      </section>
+      <nav class="year-nav" aria-label="Choose academic year"><a href="year.html?year=1" data-year="1">1st year</a><a href="year.html?year=2" data-year="2">2nd year</a><a href="year.html?year=3" data-year="3">3rd year</a><a href="year.html?year=4" data-year="4">4th year</a></nav>
+      <section class="semester-columns" id="resourceGrid" aria-live="polite"></section>
+    </main>
+  </div>
+  <script>
+    const materials = {
+      1: [['Engineering Mathematics - I','Calculus, algebra and applied mathematics','Textbook'],['Engineering Physics / Chemistry','Core concepts, numericals and revision notes','Textbook'],['Programming for Problem Solving (C/C++)','C/C++ fundamentals and problem-solving','Book'],['Basic Electrical Engineering','Circuits, machines and electrical principles','Textbook'],['Engineering Graphics','Drawing, projections and design basics','Book'],['English / Communication Skills','Technical communication and language skills','Notes'],['Programming Lab','C/C++ practical exercises and programs','Practice'],['Physics / Chemistry Lab','Experiments, observations and viva questions','Practice'],['Engineering Mathematics - II','Advanced calculus, transforms and mathematics','Textbook'],['Data Structures / Advanced Programming','Algorithms, data structures and implementation','Book'],['Digital Logic Design','Boolean algebra, gates and digital circuits','Textbook'],['Basic Electronics','Semiconductor devices and electronic circuits','Textbook'],['Environmental Science','Sustainability, ecology and environmental studies','Notes'],['Object-Oriented Programming','Classes, objects, inheritance and polymorphism','Book'],['Data Structures Lab','Practical algorithms and data structure programs','Practice'],['OOP / Programming Lab','Object-oriented programming exercises','Practice']],
+      2: [['Data Structures & Algorithms','Data structures, algorithms and complexity','Book'],['Object-Oriented Programming (Java)','Java classes, inheritance and interfaces','Textbook'],['Database Management Systems (DBMS)','SQL, relational design and database systems','Book'],['Computer Organization & Architecture','Processor, memory and computer organization','Textbook'],['Discrete Mathematics','Logic, sets, graphs and mathematical foundations','Notes'],['Operating Systems / Probability & Statistics','Processes, probability and statistical methods','Textbook'],['DSA Lab','Data structure and algorithm implementations','Practice'],['DBMS Lab','SQL queries and database exercises','Practice'],['Java / OOP Lab','Java and object-oriented programming exercises','Practice'],['Design & Analysis of Algorithms','Algorithm design strategies and analysis','Book'],['Operating Systems','Processes, scheduling, memory and file systems','Textbook'],['Computer Networks','Network layers, protocols and communication','Textbook'],['Software Engineering','Software design, testing and development methods','Book'],['Theory of Computation','Automata, formal languages and computability','Textbook'],['Web Technologies / Python','Web development and Python programming','Book'],['OS / CN Lab','Operating systems and computer networks practicals','Practice'],['Web / Python Lab','Web technologies and Python exercises','Practice'],['Mini Project','Applied CSE project and presentation','Guide']],
+      3: [['Artificial Intelligence (AI)','Intelligent systems, search and knowledge representation','Book'],['Machine Learning (ML)','Models, training and predictive methods','Textbook'],['Compiler Design','Lexical analysis, parsing and code generation','Book'],['Computer Networks','Network architecture, protocols and security','Textbook'],['Software Engineering','Software design, testing and delivery','Book'],['Web Development / Full-Stack Development','Front-end, back-end and full-stack applications','Book'],['AI / ML Lab','Artificial intelligence and machine learning practicals','Practice'],['Web / Programming Lab','Web development and programming exercises','Practice'],['Mini Project','Applied CSE project and presentation','Guide'],['Deep Learning / Data Mining','Neural networks, patterns and data discovery','Book'],['Cloud Computing','Cloud services, architecture and deployment','Textbook'],['Cyber Security','Security principles, threats and protection','Book'],['Distributed Systems','Distributed architecture and coordination','Textbook'],['Big Data Analytics','Large-scale data processing and analytics','Book'],['Professional Elective','Specialised subject selected by the student','Textbook'],['Cloud / AI Lab','Cloud computing and AI practicals','Practice'],['Project Work','Major project development and documentation','Guide']],
+      4: [['Major Project - Phase 1','Project planning, research and initial implementation','Guide'],['Professional Elective - I','Specialised advanced CSE subject','Textbook'],['Professional Elective - II','Specialised advanced CSE subject','Textbook'],['Cloud Computing / Big Data / AI Elective','Advanced technology elective','Book'],['Technical Seminar','Research presentation and technical communication','Guide'],['Internship / Industrial Training','Industry experience and practical learning','Guide'],['Project / Technical Lab','Project development and technical experimentation','Practice'],['Major Project - Phase 2','Final implementation, testing and documentation','Guide'],['Professional Elective - III','Specialised advanced CSE subject','Textbook'],['Professional Elective - IV','Specialised advanced CSE subject','Textbook'],['Open Elective','Interdisciplinary subject of choice','Textbook'],['Internship / Industrial Training','Industry experience and practical learning','Guide'],['Project Viva & Presentation','Final project defence and presentation','Practice']]
+    };
+    const yearNames = { 1:'First year', 2:'Second year', 3:'Third year', 4:'Fourth year' };
+    const semesters = { 1:['Semester 1','Semester 2',8], 2:['Semester 3','Semester 4',9], 3:['Semester 5','Semester 6',9], 4:['Semester 7','Semester 8',7] };
+    const icons = { Book:'[B]', Textbook:'[T]', Notes:'*', Practice:'[OK]', Guide:'~' };
+    const params = new URLSearchParams(window.location.search);
+    const year = Math.min(4, Math.max(1, Number(params.get('year')) || 1));
+    const grid = document.getElementById('resourceGrid');
+    document.getElementById('pageTitle').textContent = yearNames[year];
+    document.getElementById('eyebrow').textContent = yearNames[year] + ' resources';
+    document.title = yearNames[year] + ' Resources | Engineering Material';
+    document.querySelectorAll('.year-nav a').forEach(link => { if (Number(link.dataset.year) === year) link.classList.add('active'); });
+    function resourceUrl(title) { return `https://www.google.com/search?q=${encodeURIComponent(`${title} textbook pdf`)}`; }
+    function card(item, semester) { return `<a class="resource-card" href="${resourceUrl(item[0])}" target="_blank" rel="noopener" aria-label="Open ${item[0]} textbook"><div class="card-icon">${icons[item[2]]}</div><h3>${item[0]}</h3><p>${item[1]}</p><div class="card-footer"><span>${item[2]} - ${semester}</span><span class="arrow">-&gt;</span></div></a>`; }
+    function render(query = '') {
+      const list = materials[year].filter(item => item.join(' ').toLowerCase().includes(query.toLowerCase()));
+      const split = semesters[year][2];
+      const first = list.filter((item, index) => materials[year].indexOf(item) < split);
+      const second = list.filter((item, index) => materials[year].indexOf(item) >= split);
+      grid.innerHTML = list.length ? `<section class="semester-panel"><h2>${semesters[year][0]}</h2><div class="resource-grid">${first.map(item => card(item, semesters[year][0])).join('')}</div></section><section class="semester-panel"><h2>${semesters[year][1]}</h2><div class="resource-grid">${second.map(item => card(item, semesters[year][1])).join('')}</div></section>` : '<div class="empty">No resource found. Try a different search.</div>';
+    }
+    render();
+    document.getElementById('searchInput').addEventListener('input', event => render(event.target.value));
+  </script>
+</body>
+</html>
